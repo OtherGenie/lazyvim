@@ -21,15 +21,9 @@ end
 --- general
 ---------------------
 
--- yank to clipboard implicitly
-map({ "n", "x" }, "y", '"+y', { noremap = true })
+map({ "n", "x" }, "y", '"+y', { noremap = true }) -- yank to clipboard implicitly
 map("n", "dfi", "f{a <cr><esc>O", { noremap = true, silent = true })
-map(
-  "n",
-  "<leader>t",
-  "<cmd>FloatermNew --height=0.6 --width=0.6 --title=Terminal<cr>",
-  { desc = "Terminal (root dir)" }
-)
+map("n", "<leader>t", "<cmd>ToggleTerm size=40 direction=float name=terminal<cr>", { desc = "Terminal (root dir)" })
 
 omap("n", "<leader>q<cr>", ":bd<cr>", { desc = "Close", remap = true, silent = true })
 omap("n", "<leader>qq", ":qa<cr>", { desc = "Close all", remap = true, silent = true })
