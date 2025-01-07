@@ -5,9 +5,10 @@ return {
     {
       "<leader>nn",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+        require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), remap = true })
       end,
       desc = "Explorer NeoTree (Root Dir)",
+      remap = true,
     },
     {
       "<leader>NN",
