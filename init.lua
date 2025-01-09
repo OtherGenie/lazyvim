@@ -1,7 +1,10 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
+vim.cmd("set ignorecase!")
 vim.cmd("set noswapfile")
+-- markdown code block was invisible until hovered
+vim.cmd("set conceallevel=0")
 
 ------------------------------
 -- colorscheme
