@@ -6,9 +6,9 @@ return {
       -- Recipe can be any of 'default', 'minimalist', 'duo', and 'ripple'
       -- Set animate = true to enable animations on any recipe.
       -- See the docs for other config options.
-      recipe = { "default", { animate = false } },
+      recipe = { "default", { animate = true } },
       ncmode = "buffers", -- use 'windows' to fade inactive windows
-      fadelevel = 0.4, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
+      fadelevel = 0.6, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
       tint = {
         -- bg = {rgb={0,0,0}, intensity=0.3}, -- adds 30% black to background
         -- fg = {rgb={0,0,255}, intensity=0.3}, -- adds 30% blue to foreground
@@ -47,6 +47,10 @@ return {
           -- buf_vars = { variable = {'match1', 'match2'} },
           -- win_opts = { option = {'match1', 'match2' } },
           -- win_vars = { variable = {'match1', 'match2'} },
+        },
+        neotree = {
+          buf_name = { "Neo-tree" }, -- Matches any buffer name containing "Neo-tree"
+          buf_opts = { buftype = { "nofile" } }, -- Neo-tree buffers often have buftype set to "nofile"
         },
         -- any_rule_name1 = {
         --   buf_opts = {}
