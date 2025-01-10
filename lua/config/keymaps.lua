@@ -96,3 +96,9 @@ for i = 1, 9 do
     { desc = "Switch to buffer " .. i }
   )
 end
+
+---------------------
+--- dap
+---------------------
+-- persistent breakpoints https://github.com/mfussenegger/nvim-dap/issues/198
+map("n", "<leader>ddb", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "clear breakpoints" })
