@@ -27,7 +27,7 @@ map("n", "<leader>t", "<cmd>ToggleTerm size=40 direction=float name=terminal<cr>
 
 omap("n", "<leader>q<cr>", ":bd<cr>", { desc = "Close", remap = true, silent = true })
 omap("n", "<leader>qq", ":qa<cr>", { desc = "Close all", remap = true, silent = true })
-omap("n", "<leader>aq", ":qa<cr>", { desc = "Close all", remap = true, silent = true })
+-- omap("n", "<leader>aq", ":qa<cr>", { desc = "Close all", remap = true, silent = true })
 omap("n", "<leader>w<cr>", ":w<cr>", { desc = "Save", remap = true, silent = true })
 omap("n", "<leader>w", ":w<cr>", { desc = "Save", remap = true, silent = true })
 omap("n", "<leader>aw", ":wa<cr>", { desc = "Save all", remap = true, silent = true })
