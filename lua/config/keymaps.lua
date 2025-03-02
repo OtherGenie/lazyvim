@@ -103,3 +103,8 @@ end
 ---------------------
 -- persistent breakpoints https://github.com/mfussenegger/nvim-dap/issues/198
 map("n", "<leader>ddb", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "clear breakpoints" })
+
+---------------------
+--- gitsigns
+---------------------
+omap("n", "<leader>gtb", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Gitsigns Toggle current line blame" })

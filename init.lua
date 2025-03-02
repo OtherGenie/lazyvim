@@ -17,6 +17,13 @@ require("gruvbox").setup({
 vim.cmd("colorscheme gruvbox")
 vim.cmd("highlight Pmenu guibg=NONE") -- transparent completion menu
 
+vim.opt.termguicolors = true
+
+-- :hightlight
+vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { link = "Question" })
+vim.cmd("highlight! LspReferenceRead guifg=#fabd2f guibg=#101112")
+vim.cmd("highlight! LspReferenceText guifg=#fabd2f guibg=#101112")
+
 -- gray
 vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
 -- blue
