@@ -108,3 +108,55 @@ map("n", "<leader>ddb", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc 
 --- gitsigns
 ---------------------
 omap("n", "<leader>gtb", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Gitsigns Toggle current line blame" })
+
+---------------------
+--- gitsigns
+---------------------
+
+remote_patterns = {
+  { "^git@(.+)-(.+):(.+)%.git$", "https://%1/%3" }, -- git@github.com-some:some/some.git
+  { "^(https?://.*)%.git$", "%1" },
+  { "^git@(.+):(.+)%.git$", "https://%1/%2" },
+  { "^git@(.+):(.+)$", "https://%1/%2" },
+  { "^git@(.+)/(.+)$", "https://%1/%2" },
+  { "^org%-%d+@(.+):(.+)%.git$", "https://%1/%2" },
+  { "^ssh://git@(.*)$", "https://%1" },
+  { "^ssh://([^:/]+)(:%d+)/(.*)$", "https://%1/%3" },
+  { "^ssh://([^/]+)/(.*)$", "https://%1/%2" },
+  { "ssh%.dev%.azure%.com/v3/(.*)/(.*)$", "dev.azure.com/%1/_git/%2" },
+  { "^https://%w*@(.*)", "https://%1" },
+  { "^git@(.*)", "https://%1" },
+  { ":%d+", "" },
+  { "%.git$", "" },
+}
+-- master branch
+omap({ "n", "x", "v" }, "<leader>gBm", function()
+  -- Get the default branch name using git remote show origin
+  local handle =
+    io.popen("grep '^\\[branch' .git/config | sed -n 's/.*branch[[:space:]]*//p' | head -n 1 | sed 's/]//g'")
+  local default_branch = handle:read("*a"):gsub("\n", "") -- Remove trailing newline
+  handle:close()
+
+  -- If the default branch is empty or not found, fallback to 'master'
+  if default_branch == "" then
+    default_branch = "master"
+  end
+
+  -- Ensure there are no quotes around the branch name
+  default_branch = default_branch:gsub('"', "")
+
+  local cfg = {
+    branch = default_branch,
+    remote_patterns = remote_patterns,
+  }
+  Snacks.gitbrowse(cfg)
+end, { desc = "Git Browse default branch (open)" })
+
+-- current branch
+omap({ "n", "x", "v" }, "<leader>gBb", function()
+  local cfg = {
+    branch = nil,
+    remote_patterns = remote_patterns,
+  }
+  Snacks.gitbrowse(cfg)
+end, { desc = "Git Browse current branch (open)" })
