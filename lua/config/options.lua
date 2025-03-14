@@ -5,3 +5,6 @@
 -- Enable the option to require a Prettier config file
 -- If no prettier config file is found, the formatter will not be used
 vim.g.lazyvim_prettier_needs_config = false
+
+-- -> rustup component add rust-analyzer
+vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
