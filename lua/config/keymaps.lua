@@ -160,3 +160,11 @@ omap({ "n", "x", "v" }, "<leader>gBb", function()
   }
   Snacks.gitbrowse(cfg)
 end, { desc = "Git Browse current branch (open)" })
+
+---------------------
+--- luasnip
+---------------------
+local ls = require("luasnip")
+map({ "i" }, "<M-e>", function()
+  ls.expand()
+end, { desc = "expand snippet", noremap = true }) -- yank to clipboard implicitly
