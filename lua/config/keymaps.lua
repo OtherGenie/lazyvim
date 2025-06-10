@@ -129,6 +129,15 @@ remote_patterns = {
   { ":%d+", "" },
   { "%.git$", "" },
 }
+url_patterns = {
+  ["github%.com"] = {
+    branch = "/tree/{branch}",
+    file = "/blob/{branch}/{file}#L{line_start}-L{line_end}",
+    permalink = "/blob/{commit}/{file}#L{line_start}-L{line_end}",
+    commit = "/commit/{commit}",
+  },
+}
+
 -- master branch
 omap({ "n", "x", "v" }, "<leader>gBm", function()
   -- Get the default branch name using git remote show origin
@@ -160,6 +169,47 @@ omap({ "n", "x", "v" }, "<leader>gBb", function()
   }
   Snacks.gitbrowse(cfg)
 end, { desc = "Git Browse current branch (open)" })
+
+-- TODO: just like lazygit reflog + O
+--
+-- -- current line commit hash branch
+-- local function get_current_line_git_hash()
+--   local line = vim.fn.line(".")
+--   local file = vim.fn.expand("%")
+--
+--   -- Run the git blame command
+--   local cmd = string.format("git blame -L %d,%d %s", line, line, file)
+--   local handle = io.popen(cmd)
+--   if not handle then
+--     print("Failed to run git blame")
+--     return
+--   end
+--
+--   local result = handle:read("*a")
+--   handle:close()
+--   print("OI:", result)
+--
+--   local hash = result:match("^(%S+)")
+--   if hash then
+--     print("Commit hash:", hash)
+--     vim.fn.setreg("+", hash) -- copy to clipboard
+--     return hash
+--   else
+--     print("Could not find commit hash")
+--     return nil
+--   end
+-- end
+-- omap("n", "<leader>gBl", function()
+--   local commit_hash = get_current_line_git_hash()
+--
+--   local cfg = {
+--     what = "commit",
+--     commit = commit_hash,
+--     remote_patterns = remote_patterns,
+--     url_patterns = url_patterns,
+--   }
+--   Snacks.gitbrowse(cfg)
+-- end, { desc = "Get Git hash for current line" })
 
 ---------------------
 --- luasnip
