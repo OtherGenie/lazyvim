@@ -217,4 +217,34 @@ end, { desc = "Git Browse current branch (open)" })
 local ls = require("luasnip")
 map({ "i" }, "<M-e>", function()
   ls.expand()
-end, { desc = "expand snippet", noremap = true }) -- yank to clipboard implicitly
+end, { desc = "expand snippet", noremap = true })
+
+---------------------
+--- colorscheme
+---------------------
+
+-- map("n", "<leader>rcs", function()
+--   local scheme = vim.fn.input("Colorscheme: ")
+--   require("config.remember-colorscheme").set(scheme)
+-- end, { desc = "Remember Colorscheme", noremap = true })
+
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local remember = require("config.remember-colorscheme")
+
+vim.keymap.set("n", "<leader>uC", function()
+  builtin.colorscheme({
+    enable_preview = true,
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local entry = action_state.get_selected_entry()
+        if entry then
+          remember.set(entry.value) -- Save the choice
+        end
+        actions.close(prompt_bufnr)
+      end)
+
+      return true
+    end,
+  })
+end, { desc = "Colorscheme with remember" })

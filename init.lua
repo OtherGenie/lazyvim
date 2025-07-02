@@ -9,14 +9,16 @@ vim.cmd("set conceallevel=0")
 ------------------------------
 -- colorscheme
 ------------------------------
+
 require("gruvbox").setup({
   contrast = "", -- can be "hard", "soft" or empty string
   transparent_mode = true,
   dim_inactive = false,
 })
 vim.cmd("colorscheme gruvbox")
-vim.cmd("highlight Pmenu guibg=NONE") -- transparent completion menu
+require("config.remember-colorscheme").load()
 
+vim.cmd("highlight Pmenu guibg=NONE") -- transparent completion menu
 vim.opt.termguicolors = true
 
 -- :hightlight
