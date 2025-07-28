@@ -248,3 +248,11 @@ vim.keymap.set("n", "<leader>uC", function()
     end,
   })
 end, { desc = "Colorscheme with remember" })
+
+---------------------
+--- neotree
+---------------------
+
+vim.keymap.set("n", "<leader>ng", function()
+  require("neo-tree.command").execute({ source = "git_status", toggle = true })
+end, { desc = "NeoTree (git)" })
