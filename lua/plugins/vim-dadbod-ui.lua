@@ -2,9 +2,17 @@ return {
   "kristijanhusak/vim-dadbod-ui",
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
   dependencies = "vim-dadbod",
-  keys = {
-    { "<leader>D", "<cmd>DBUIToggle<CR>", desc = "Toggle DBUI" },
-  },
+  keys = function(_, keys)
+    vim.keymap.set("n", "<leader>D", "<cmd>DBUIToggle<CR>", { silent = true, desc = "Toggle DBUI" })
+
+    vim.keymap.set("n", "<CR>", function()
+      vim.cmd("normal! vip") -- select inner paragraph
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>(DBUI_ExecuteQuery)", true, false, true), "x", false)
+    end, { silent = true, desc = "Run SQL on paragraph" })
+
+    -- vim.keymap.set("n", "<CR>", "<Plug>(DBUI_ExecuteQuery)", { silent = true, desc = "Run SQL query" })
+    -- vim.keymap.set("v", "<CR>", "<Plug>(DBUI_ExecuteQuery)", { silent = true, desc = "Run SQL query (visual)" })
+  end,
   init = function()
     local data_path = vim.fn.stdpath("data")
 
@@ -14,7 +22,6 @@ return {
     vim.g.db_ui_tmp_query_location = data_path .. "/dadbod_ui/tmp"
     vim.g.db_ui_use_nerd_fonts = true
     vim.g.db_ui_use_nvim_notify = true
-    vim.g.db_ui_winwidth = 10
 
     -- NOTE: The default behavior of auto-execution of queries on save is disabled
     -- this is useful when you have a big query that you don't want to run every time
