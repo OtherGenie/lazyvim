@@ -42,3 +42,64 @@ vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { bg = "NONE", fg = "#569CD6" })
 -- vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
 -- vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
 -- vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
+
+------------------------------------------------------
+-- Helpers
+------------------------------------------------------
+
+-- Get repo root (as full path)
+local function git_root()
+  local root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null")
+  return vim.v.shell_error == 0 and vim.fn.trim(root) or nil
+end
+
+-- Get project name = last directory of git root
+local function get_project_name()
+  local root = git_root()
+  if not root then
+    return nil
+  end
+  return root:match("([^/]+)$")
+end
+
+-- Repo-relative path (no project prefix)
+local function get_repo_relative()
+  local file = vim.fn.expand("%:p")
+  local rel = vim.fn.system("git ls-files --full-name " .. vim.fn.shellescape(file))
+  return vim.fn.trim(rel)
+end
+
+-- Project-relative path (projectName/file)
+local function get_project_relative()
+  local project = get_project_name()
+  if not project then
+    return nil
+  end
+  local rel = get_repo_relative()
+  return project .. "/" .. rel
+end
+
+------------------------------------------------------
+-- Keymaps
+------------------------------------------------------
+
+-- Copy project-relative path
+vim.keymap.set("n", "<leader>fp", function()
+  local path = get_project_relative()
+  if not path then
+    return print("Not a git repo")
+  end
+  vim.fn.setreg("+", path)
+  print("Copied: " .. path)
+end, { desc = "Copy project-relative path" })
+
+-- Copy project-relative path + line number
+vim.keymap.set("n", "<leader>fP", function()
+  local path = get_project_relative()
+  if not path then
+    return print("Not a git repo")
+  end
+  local result = path .. ":" .. vim.fn.line(".")
+  vim.fn.setreg("+", result)
+  print("Copied: " .. result)
+end, { desc = "Copy project-relative path + line" })
