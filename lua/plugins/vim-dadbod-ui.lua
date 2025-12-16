@@ -5,7 +5,7 @@ return {
   keys = function(_, keys)
     vim.keymap.set("n", "<leader>D", "<cmd>DBUIToggle<CR>", { silent = true, desc = "Toggle DBUI" })
 
-    vim.keymap.set("n", "<CR>", function()
+    vim.keymap.set("n", "<S-CR>", function()
       vim.cmd("normal! vip") -- select inner paragraph
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>(DBUI_ExecuteQuery)", true, false, true), "x", false)
     end, { silent = true, desc = "Run SQL on paragraph" })
