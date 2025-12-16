@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     map("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Goto Declaration" })
     map("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Goto Definition" })
-    map("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "Check References" })
+    -- map("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "Check References" }) -- TELESCOPED
     map("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover definition" })
     map("n", "<space>rn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "Rename" })
     map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "Code action" })
