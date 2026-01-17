@@ -39,6 +39,7 @@ omap("n", "<leader>fn", ":e %:h/", { desc = "New file", noremap = true })
 
 local builtin = require("telescope.builtin")
 map("n", "<leader>sf", builtin.find_files, { desc = "Find files (telescope)" })
+map("n", "<leader>gd", builtin.lsp_definitions, { desc = "Goto Definition (Telescope)" })
 map("n", "<leader>sag", ":Telescope live_grep_args<cr>", { desc = "Live Grep (args)" })
 
 -- nvim-lspconfig
@@ -52,7 +53,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     map("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Goto Declaration" })
-    map("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Goto Definition" })
+    -- map("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Goto Definition" })
     -- map("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "Check References" }) -- TELESCOPED
     map("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover definition" })
     map("n", "<space>rn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "Rename" })
