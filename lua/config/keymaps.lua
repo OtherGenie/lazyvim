@@ -33,6 +33,15 @@ omap("n", "<leader>w", ":w<cr>", { desc = "Save", noremap = true, silent = true 
 omap("n", "<leader>aw", ":wa<cr>", { desc = "Save all", noremap = true, silent = true })
 omap("n", "<leader>fn", ":e %:h/", { desc = "New file", noremap = true })
 
+local dual_statuscolumn = "%s %{v:relnum} %{v:lnum}"
+map("n", "<leader>gln", function()
+  if vim.opt.statuscolumn:get() == "" then
+    vim.opt.statuscolumn = dual_statuscolumn
+  else
+    vim.opt.statuscolumn = ""
+  end
+end, { noremap = true, desc = "Toggle dual line numbers" })
+
 ---------------------
 --- telescope
 ---------------------
